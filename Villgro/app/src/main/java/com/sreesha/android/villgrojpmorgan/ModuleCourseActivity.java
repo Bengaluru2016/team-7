@@ -30,7 +30,8 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steppersViewConfig.setOnFinishAction(new OnFinishAction() {
             @Override
             public void onFinish() {
-                // Action on last step Finish button
+                steps.clear();
+                setupQuizStep();
             }
         });
         steppersViewConfig.setOnCancelAction(new OnCancelAction() {
@@ -48,10 +49,10 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
 
             final SteppersItem item = new SteppersItem();
             item.setLabel("Step nr " + i);
-            item.setPositiveButtonEnable(i % 2 != 0);
+            item.setPositiveButtonEnable(true);
 
             if (i % 2 == 0) {
-                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i,null);
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
 
                 item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
                 item.setFragment(blankFragment);
@@ -69,6 +70,23 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
 
     void setupSteppersView() {
         steppersView = (SteppersView) findViewById(R.id.steppersView);
+        steppersView.setConfig(steppersViewConfig);
+        steppersView.setItems(steps);
+        steppersView.build();
+    }
+
+    void setupQuizStep() {
+        ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1,"q");
+
+        SteppersItem stepFirst = new SteppersItem();
+
+        stepFirst.setLabel("Quiz");
+        stepFirst.setSubLabel("Ace it !");
+        stepFirst.setFragment(blankFragment);
+        stepFirst.setPositiveButtonEnable(false);
+
+        steps.add(stepFirst);
+
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(steps);
         steppersView.build();

@@ -10,14 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ModuleStepsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ModuleStepsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ModuleStepsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +19,6 @@ public class ModuleStepsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int mParam1;
     private String mParam2;
-
 
 
     public ModuleStepsFragment() {
@@ -57,15 +48,20 @@ public class ModuleStepsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_module_steps, container, false);
-        mCoordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coOrdLayout);
-        mCoordinatorLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ModuleCourseActivity)getActivity()).onFragmentInteraction(mParam1);
-            }
-        });
-        return view;
+        if (mParam1 != -1) {
+            View view = inflater.inflate(R.layout.fragment_module_steps, container, false);
+            mCoordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coOrdLayout);
+            mCoordinatorLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((ModuleCourseActivity) getActivity()).onFragmentInteraction(mParam1);
+                }
+            });
+            return view;
+        } else {
+            View view = inflater.inflate(R.layout.fragment_module_steps, container, false);
+            return view;
+        }
     }
 
     @Override
