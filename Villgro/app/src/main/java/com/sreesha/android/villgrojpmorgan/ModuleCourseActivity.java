@@ -53,10 +53,10 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
 
             final SteppersItem item = new SteppersItem();
 
-            if (i == STEP_NUM - 1) {
+            if (i == STEP_NUM ) {
                 item.setLabel("Quiz !!!!");
                 item.setPositiveButtonEnable(true);
-                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1, "q");
 
                 item.setSubLabel(" Ace It !! ");
                 item.setFragment(blankFragment);

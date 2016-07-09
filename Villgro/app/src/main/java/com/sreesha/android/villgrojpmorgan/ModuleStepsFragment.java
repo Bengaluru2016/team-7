@@ -1,13 +1,16 @@
 package com.sreesha.android.villgro;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,6 +71,13 @@ public class ModuleStepsFragment extends Fragment {
                 }
             });
             return view;
+        } else if (mParam2.equals("q")) {
+            View view = inflater.inflate(R.layout.quiz_layout, container, false);
+            initializeSteppers(view);
+            return view;
+        } else if (mParam2.equals("qq")) {
+            View view = inflater.inflate(R.layout.quiz_question_single_item, container, false);
+            return view;
         }
         return null;
     }
@@ -77,9 +87,13 @@ public class ModuleStepsFragment extends Fragment {
         steppersViewConfig.setOnFinishAction(new OnFinishAction() {
             @Override
             public void onFinish() {
-                if (mParam2 == "qq") {
-
-                }
+                Toast.makeText(getActivity(), "Hurray You've Finished The quiz\n Going Back in a few seconds !!! :) ", Toast.LENGTH_LONG).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().finish();
+                    }
+                }, 1000);
             }
         });
         steppersViewConfig.setOnCancelAction(new OnCancelAction() {
@@ -93,7 +107,7 @@ public class ModuleStepsFragment extends Fragment {
         steps = new ArrayList<>();
 
         int i = 0;
-        while (i <= 10) {
+        while (i <= 1) {
 
             final SteppersItem item = new SteppersItem();
             item.setLabel("Quiz Question" + i);
