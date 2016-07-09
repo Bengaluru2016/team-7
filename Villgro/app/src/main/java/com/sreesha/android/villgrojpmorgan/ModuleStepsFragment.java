@@ -80,14 +80,15 @@ public class ModuleStepsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     String toSpeak = mContentTextView.getText().toString();
-                    Log.d("LargeText", toSpeak);
-                    textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                    //Log.d("LargeText", toSpeak);
+                    textToSpeech.speak(getString(R.string.large_text), TextToSpeech.QUEUE_FLUSH, null);
                 }
             });
             textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int status) {
                     if (status != TextToSpeech.ERROR) {
+                        Log.d("LargeText", "Error");
                         textToSpeech.setLanguage(Locale.UK);
                     }
                 }
