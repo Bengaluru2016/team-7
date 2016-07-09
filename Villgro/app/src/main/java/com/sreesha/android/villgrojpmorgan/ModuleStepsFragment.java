@@ -59,7 +59,7 @@ public class ModuleStepsFragment extends Fragment {
             });
             return view;
         } else {
-            View view = inflater.inflate(R.layout.fragment_module_steps, container, false);
+            View view = inflater.inflate(R.layout.quiz_layout, container, false);
             return view;
         }
     }
