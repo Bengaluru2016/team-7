@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.post('/signup',function(req,res){
 console.log(req.body);
 
-db.users.insert({"uname":req.body.uname,"email":req.body.email,"password":req.body.password,"type":req.body.type},function(err,docs){
+db.users.insert({"uname":req.body.uname,"email":req.body.email,"password":req.body.password,"type":req.body.type,"courses":[]},function(err,docs){
 console.log(docs);
 if(err==null)
 {
@@ -61,5 +61,20 @@ app.post('/createContent',function(req,res){
 
 });
 
+
+app.post('/enterCourse',function(req,res){
+var ObjectId = mongojs.ObjectId;
+var course=[];
+  console.log(req.body);
+
+  db.users.find({"_id":ObjectId(req.body.id)},function(err,docs){
+course=docs[0].courses;
+course.push(req.body.courseId);
+  db.users.update({"_id":ObjectId(req.body.id)},{$set:{courses:course}},function(err,docs){
+    res.json(docs)
+  });
+
+  });
+});
 app.listen(3001);
 console.log("running 3001");
