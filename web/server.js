@@ -1,7 +1,7 @@
 var express=require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db =mongojs('jpc',['users','contents','questions']);
+var db =mongojs('jpc',['users','contents','questions','quize']);
 var bodyParser = require('body-parser');
 var ObjectId = mongojs.ObjectId;
 app.use(express.static(__dirname+"/public"));
@@ -106,7 +106,7 @@ app.post('/getProfileCourses',function(req,res){
   });
 });
 
-//ADD QUESTION
+//ADD QUESTION TO FORUN
 
 app.post('/addQuestion',function(req,res){
 
@@ -115,5 +115,48 @@ app.post('/addQuestion',function(req,res){
     res.json({"status":1,"message":docs});
   });
 });
+
+//ADD ANSWER TO FORUM
+
+app.post('/addAnswer',function(req,res){
+var answers=[];
+var ansObj={};
+  db.questions.find({"_id":ObjectId(req.body.question_id)},function(err,docs){
+    answers=docs[0].answers
+ansObj[req.body.answerer_id]=req.body.answer
+    answers.push(ansObj);
+console.log(answers);
+
+    db.questions.update({"_id":ObjectId(req.body.question_id)},{$set:{"answers":answers}},function(err,docs){
+
+      res.json(docs);
+    });
+  });
+});
+
+//ADD QUIZE QUESTION
+
+app.post('/addQuizeQuestion',function(req,res){
+
+var answers=JSON.parse(req.body.answers);
+
+db.quize.insert({"question":req.body.question,"answers":answers,"qposter_id":req.body.qposter_id,"course_id":req.body.course_id,"correct_ans":req.body.cans},function(err,docs){
+
+  res.json(docs);
+   });
+});
+
+//GET QUIZE QUESTION
+
+app.post('/getQuize',function(req,res){
+
+  db.quize.find({"course_id":req.body.question_id},function(err,docs){
+
+res.json(docs[0]);
+
+  });
+
+});
+
 app.listen(3001);
 console.log("running 3001");

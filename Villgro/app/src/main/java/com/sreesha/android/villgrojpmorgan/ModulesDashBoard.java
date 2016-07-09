@@ -1,10 +1,15 @@
 package com.sreesha.android.villgro;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +31,7 @@ import com.sreesha.android.villgro.Animation.AnimationUtils;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ModulesDashBoard extends AppCompatActivity {
+public class ModulesDashBoard extends AppCompatActivity implements   NavigationView.OnNavigationItemSelectedListener {
 
 
     RecyclerView outerRecyclerView;
@@ -53,6 +58,14 @@ public class ModulesDashBoard extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         outerRVAdapter = new OuterRecyclerViewCA(mModuleMetaDataArrayList);
         outerRecyclerView = (RecyclerView) findViewById(R.id.outerRecyclerView);
@@ -70,6 +83,28 @@ public class ModulesDashBoard extends AppCompatActivity {
 
         super.onSaveInstanceState(outState, outPersistentState);
     }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+         if (id == R.id.nav_gallery) {
+            Intent in=new Intent(ModulesDashBoard.this,Forum_Connection.class);
+            startActivity(in);
+
+        } else if (id == R.id.nav_slideshow) {
+            Intent in=new Intent(ModulesDashBoard.this,Forum_Connection.class);
+            startActivity(in);
+
+        } else if (id == R.id.nav_manage) {
+            Intent in=new Intent(ModulesDashBoard.this,Forum_Connection.class);
+            startActivity(in);
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
 
     public class OuterRecyclerViewCA extends RecyclerView.Adapter<OuterRecyclerViewCA.ViewHolder> {
         InnerRecyclerViewCA innerRCAdapter;
