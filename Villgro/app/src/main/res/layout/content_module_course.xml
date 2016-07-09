@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.sreesha.android.villgro.ModulesDashBoard"
-    tools:showIn="@layout/activity_modules_dash_board">
+    tools:context="com.sreesha.android.villgro.ModuleCourseActivity"
+    tools:showIn="@layout/activity_module_course">
 
-
-
-
-
+    <me.drozdzynski.library.steppers.SteppersView
+        android:id="@+id/steppersView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </android.support.v4.widget.NestedScrollView>

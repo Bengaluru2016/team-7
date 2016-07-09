@@ -21,14 +21,6 @@
         <activity
             android:name=".ModulesDashBoard"
             android:label="@string/title_activity_modules_dash_board"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".QuizActivity"
-            android:label="@string/title_activity_quiz"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Quizfinish"
-            android:label="@string/title_activity_quizfinish"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
