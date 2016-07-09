@@ -16,7 +16,7 @@ db.users.insert({"uname":req.body.uname,"email":req.body.email,"password":req.bo
 console.log(docs);
 if(err==null)
 {
-  res.json({"status":1,"message":docs});
+  res.json({"status":1,"message":docs[0]});
 }
 
 
@@ -52,7 +52,7 @@ app.post('/createContent',function(req,res){
   console.log(docs);
   if(err==null)
   {
-    res.json({"status":1,"message":docs});
+    res.json({"status":1,"message":docs[0]});
   }else{
     res.json({"status":0,"message":err});
   }
@@ -94,6 +94,16 @@ app.post('/getProfile',function(req,res){
 
     res.json({"status":1,"message":docs[0]});
   });
-})
+});
+
+//GET PROFILE COURSES
+
+app.post('/getProfileCourses',function(req,res){
+
+  db.contents.find({"_id":ObjectId(req.body.courseId)},function(err,docs){
+
+    res.json({"status":1,"message":docs[0]});
+  });
+});
 app.listen(3001);
 console.log("running 3001");
