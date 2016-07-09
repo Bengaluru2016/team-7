@@ -1,7 +1,7 @@
 var express=require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db =mongojs('jpc',['users','contents','questions']);
+var db =mongojs('jpc',['users','contents','questions','quize']);
 var bodyParser = require('body-parser');
 var ObjectId = mongojs.ObjectId;
 app.use(express.static(__dirname+"/public"));
@@ -132,6 +132,18 @@ console.log(answers);
       res.json(docs);
     });
   });
+});
+
+//ADD QUIZE
+
+app.post('/addQuizeQuestion',function(req,res){
+
+var answers=JSON.parse(req.body.answers);
+
+db.quize.insert({"question":req.body.question,"answers":answers,"qposter_id":req.body.qposter_id,"course_id":req.body.course_id,"correct_ans":req.body.cans},function(err,docs){
+
+  res.json(docs);
+   });
 });
 
 app.listen(3001);
