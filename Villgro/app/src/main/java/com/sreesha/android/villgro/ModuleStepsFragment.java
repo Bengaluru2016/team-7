@@ -54,6 +54,7 @@ public class ModuleStepsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,11 +68,16 @@ public class ModuleStepsFragment extends Fragment {
                 }
             });
             return view;
-        } else {
+        } else if (mParam2.equals("q")) {
+            View view = inflater.inflate(R.layout.quiz_layout, container, false);
+            initializeSteppers(view);
+            return view;
+        } else if (mParam2.equals("qq")) {
             View view = inflater.inflate(R.layout.quiz_layout, container, false);
             initializeSteppers(view);
             return view;
         }
+        return null;
     }
 
     void initializeSteppers(View view) {
@@ -79,7 +85,9 @@ public class ModuleStepsFragment extends Fragment {
         steppersViewConfig.setOnFinishAction(new OnFinishAction() {
             @Override
             public void onFinish() {
+                if (mParam2 == "qq") {
 
+                }
             }
         });
         steppersViewConfig.setOnCancelAction(new OnCancelAction() {
@@ -96,17 +104,17 @@ public class ModuleStepsFragment extends Fragment {
         while (i <= 10) {
 
             final SteppersItem item = new SteppersItem();
-            item.setLabel("Step nr " + i);
+            item.setLabel("Quiz Question" + i);
             item.setPositiveButtonEnable(true);
 
             if (i % 2 == 0) {
-                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1, "qq");
 
-                item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
+                item.setSubLabel("Multiple Answers");
                 item.setFragment(blankFragment);
             } else {
-                ModuleStepsFragment blankSecondFragment = new ModuleStepsFragment();
-                item.setSubLabel("Fragment: " + blankSecondFragment.getClass().getSimpleName());
+                ModuleStepsFragment blankSecondFragment = ModuleStepsFragment.newInstance(-1, "qq");
+                item.setSubLabel("Single Answer");
                 item.setFragment(blankSecondFragment);
             }
 
