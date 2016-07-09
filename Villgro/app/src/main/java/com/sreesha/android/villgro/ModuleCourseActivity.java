@@ -30,7 +30,6 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steppersViewConfig.setOnFinishAction(new OnFinishAction() {
             @Override
             public void onFinish() {
-                steps.clear();
                 setupQuizStep();
             }
         });
@@ -45,7 +44,7 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steps = new ArrayList<>();
 
         int i = 0;
-        while (i <= 10) {
+        while (i <= 2) {
 
             final SteppersItem item = new SteppersItem();
             item.setLabel("Step nr " + i);
@@ -83,13 +82,13 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         stepFirst.setLabel("Quiz");
         stepFirst.setSubLabel("Ace it !");
         stepFirst.setFragment(blankFragment);
-        stepFirst.setPositiveButtonEnable(false);
+        stepFirst.setPositiveButtonEnable(true);
 
         steps.add(stepFirst);
-
+        /*
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(steps);
-        steppersView.build();
+        steppersView.build();*/
     }
 
     @Override
