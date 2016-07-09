@@ -9,6 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
+import me.drozdzynski.library.steppers.OnCancelAction;
+import me.drozdzynski.library.steppers.OnFinishAction;
+import me.drozdzynski.library.steppers.SteppersItem;
+import me.drozdzynski.library.steppers.SteppersView;
+
 
 public class ModuleStepsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -20,6 +27,9 @@ public class ModuleStepsFragment extends Fragment {
     private int mParam1;
     private String mParam2;
 
+    SteppersView steppersView;
+    SteppersView.Config steppersViewConfig;
+    ArrayList<SteppersItem> steps;
 
     public ModuleStepsFragment() {
         // Required empty public constructor
@@ -44,7 +54,6 @@ public class ModuleStepsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,8 +69,58 @@ public class ModuleStepsFragment extends Fragment {
             return view;
         } else {
             View view = inflater.inflate(R.layout.quiz_layout, container, false);
+            initializeSteppers(view);
             return view;
         }
+    }
+
+    void initializeSteppers(View view) {
+        steppersViewConfig = new SteppersView.Config();
+        steppersViewConfig.setOnFinishAction(new OnFinishAction() {
+            @Override
+            public void onFinish() {
+
+            }
+        });
+        steppersViewConfig.setOnCancelAction(new OnCancelAction() {
+            @Override
+            public void onCancel() {
+                // Action when click cancel on one of steps
+            }
+        });
+        steppersViewConfig.setFragmentManager(getChildFragmentManager());
+
+        steps = new ArrayList<>();
+
+        int i = 0;
+        while (i <= 10) {
+
+            final SteppersItem item = new SteppersItem();
+            item.setLabel("Step nr " + i);
+            item.setPositiveButtonEnable(true);
+
+            if (i % 2 == 0) {
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
+
+                item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
+                item.setFragment(blankFragment);
+            } else {
+                ModuleStepsFragment blankSecondFragment = new ModuleStepsFragment();
+                item.setSubLabel("Fragment: " + blankSecondFragment.getClass().getSimpleName());
+                item.setFragment(blankSecondFragment);
+            }
+
+            steps.add(item);
+            i++;
+        }
+        setupSteppersView(view);
+    }
+
+    void setupSteppersView(View view) {
+        steppersView = (SteppersView) view.findViewById(R.id.quizSteppersLayout);
+        steppersView.setConfig(steppersViewConfig);
+        steppersView.setItems(steps);
+        steppersView.build();
     }
 
     @Override
