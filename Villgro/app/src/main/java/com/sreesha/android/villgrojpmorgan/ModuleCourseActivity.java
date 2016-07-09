@@ -72,6 +72,7 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
     }
 
     void setupSteppersView() {
+
         steppersView = (SteppersView) findViewById(R.id.steppersView);
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(steps);
@@ -79,6 +80,21 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
     }
 
     void setupQuizStep() {
+        quizSteppersViewConfig = new SteppersView.Config();
+        quizSteppersViewConfig.setOnFinishAction(new OnFinishAction() {
+            @Override
+            public void onFinish() {
+                setupQuizStep();
+            }
+        });
+        quizSteppersViewConfig.setOnCancelAction(new OnCancelAction() {
+            @Override
+            public void onCancel() {
+                // Action when click cancel on one of steps
+            }
+        });
+        quizSteppersViewConfig.setFragmentManager(getSupportFragmentManager());
+
         ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1, "q");
 
         SteppersItem stepFirst = new SteppersItem();
@@ -91,7 +107,7 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         quizSteps.add(stepFirst);
 
         quizSteppersView = (SteppersView) findViewById(R.id.steppersView);
-        quizSteppersView.setConfig(steppersViewConfig);
+        quizSteppersView.setConfig(quizSteppersViewConfig);
         quizSteppersView.setItems(steps);
         quizSteppersView.build();
     }
