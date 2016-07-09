@@ -52,12 +52,22 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         while (i <= STEP_NUM) {
 
             final SteppersItem item = new SteppersItem();
-            item.setLabel("Step nr " + i);
-            item.setPositiveButtonEnable(true);
+
+            if (i == STEP_NUM - 1) {
+                item.setLabel("Quiz !!!!");
+                item.setPositiveButtonEnable(true);
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
+
+                item.setSubLabel(" Ace It !! ");
+                item.setFragment(blankFragment);
+            }else{
+                item.setLabel("Step nr " + i);
+                item.setPositiveButtonEnable(true);
                 ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
 
                 item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
                 item.setFragment(blankFragment);
+            }
             steps.add(item);
             i++;
         }
