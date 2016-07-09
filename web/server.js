@@ -65,13 +65,21 @@ app.post('/createContent',function(req,res){
 app.post('/enterCourse',function(req,res){
 var ObjectId = mongojs.ObjectId;
 var course=[];
+var courseId;
   console.log(req.body);
 
   db.users.find({"_id":ObjectId(req.body.id)},function(err,docs){
 course=docs[0].courses;
+
+console.log(course);
+
 course.push(req.body.courseId);
   db.users.update({"_id":ObjectId(req.body.id)},{$set:{courses:course}},function(err,docs){
-    res.json(docs)
+    //res.json(docs)
+
+    db.contents.find({"_id":ObjectId(req.body.courseId)},function(err,docs){
+      res.json(docs);
+    });
   });
 
   });
