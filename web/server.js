@@ -42,6 +42,15 @@ if(docs)
 
 });
 
+// GET COURSE DEPENDING ON type
+
+app.post('/getCourseDependingOnType',function(req,res){
+  db.contents.find({"content_category":req.body.content_category},function(err,docs){
+   console.log(docs);
+    res.json({"status":1,"message":docs});
+  });
+});
+
 // CREATE CONTENT
 
 app.post('/createContent',function(req,res){
