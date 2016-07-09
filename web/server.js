@@ -106,7 +106,7 @@ app.post('/getProfileCourses',function(req,res){
   });
 });
 
-//ADD QUESTION
+//ADD QUESTION TO FORUN
 
 app.post('/addQuestion',function(req,res){
 
@@ -116,7 +116,7 @@ app.post('/addQuestion',function(req,res){
   });
 });
 
-//ADD ANSWER
+//ADD ANSWER TO FORUM
 
 app.post('/addAnswer',function(req,res){
 var answers=[];
@@ -134,7 +134,7 @@ console.log(answers);
   });
 });
 
-//ADD QUIZE
+//ADD QUIZE QUESTION
 
 app.post('/addQuizeQuestion',function(req,res){
 
@@ -144,6 +144,18 @@ db.quize.insert({"question":req.body.question,"answers":answers,"qposter_id":req
 
   res.json(docs);
    });
+});
+
+//GET QUIZE QUESTION
+
+app.post('/getQuize',function(req,res){
+
+  db.quize.find({"course_id":req.body.question_id},function(err,docs){
+
+res.json(docs[0]);
+
+  });
+
 });
 
 app.listen(3001);
