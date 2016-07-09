@@ -1,5 +1,6 @@
 package com.sreesha.android.villgro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.sreesha.android.villgro.Animation.AnimationUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ModulesDashBoard extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class ModulesDashBoard extends AppCompatActivity {
                     , R.drawable.education_backdrop
                     , R.drawable.agri_business
                     , R.drawable.energy_conservation_backdrop};
+    ArrayList<ModuleMetaData> mModuleMetaDataArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class ModulesDashBoard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        outerRVAdapter = new OuterRecyclerViewCA();
+        outerRVAdapter = new OuterRecyclerViewCA(mModuleMetaDataArrayList);
         outerRecyclerView = (RecyclerView) findViewById(R.id.outerRecyclerView);
         outerRecyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -65,9 +68,10 @@ public class ModulesDashBoard extends AppCompatActivity {
 
     public class OuterRecyclerViewCA extends RecyclerView.Adapter<OuterRecyclerViewCA.ViewHolder> {
         InnerRecyclerViewCA innerRCAdapter;
+        ArrayList<ModuleMetaData> mModuleMetaDataArrayList = new ArrayList<>();
 
-        OuterRecyclerViewCA() {
-
+        OuterRecyclerViewCA(ArrayList<ModuleMetaData> mModuleMetaDataArrayList) {
+            this.mModuleMetaDataArrayList = mModuleMetaDataArrayList;
             innerRCAdapter = new InnerRecyclerViewCA();
         }
 
@@ -152,7 +156,7 @@ public class ModulesDashBoard extends AppCompatActivity {
                 holder.moduleElement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        v.getContext().startActivity(new Intent(ModulesDashBoard.this, ModuleCourseActivity.class));
                     }
                 });
                 prevPos = position;

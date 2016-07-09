@@ -44,7 +44,7 @@ public class ModuleCourseActivity extends AppCompatActivity {
 
         SteppersItem stepFirst = new SteppersItem();
 
-        stepFirst.setLabel("Title of step");
+        stepFirst.setLabel("Step - 1");
         stepFirst.setSubLabel("Subtitle of step");
         stepFirst.setFragment(
                 new ModuleStepsFragment()
@@ -53,6 +53,28 @@ public class ModuleCourseActivity extends AppCompatActivity {
         stepFirst.setPositiveButtonEnable(false);
 
         steps.add(stepFirst);
+
+        SteppersItem stepSecond = new SteppersItem();
+
+        stepFirst.setLabel("Step - 2");
+        stepFirst.setSubLabel("Subtitle of step");
+        stepFirst.setFragment(
+                new ModuleStepsFragment()
+
+        );
+        stepFirst.setPositiveButtonEnable(false);
+        steps.add(stepSecond);
+
+        SteppersItem stepThird = new SteppersItem();
+
+        stepFirst.setLabel("Step - 3");
+        stepFirst.setSubLabel("Subtitle of step");
+        stepFirst.setFragment(
+                new ModuleStepsFragment()
+
+        );
+        stepFirst.setPositiveButtonEnable(false);
+        steps.add(stepThird);
 
         setupSteppersView();
     }
