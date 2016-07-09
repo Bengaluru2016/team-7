@@ -3,6 +3,7 @@ var app = express();
 var mongojs = require('mongojs');
 var db =mongojs('jpc',['users','contents']);
 var bodyParser = require('body-parser');
+var ObjectId = mongojs.ObjectId;
 app.use(express.static(__dirname+"/public"));
  //app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -61,9 +62,9 @@ app.post('/createContent',function(req,res){
 
 });
 
-
+// ENTER COURSE
 app.post('/enterCourse',function(req,res){
-var ObjectId = mongojs.ObjectId;
+
 var course=[];
 var courseId;
   console.log(req.body);
@@ -84,5 +85,15 @@ course.push(req.body.courseId);
 
   });
 });
+
+//GET PROFILE
+
+app.post('/getProfile',function(req,res){
+
+  db.users.find({"_id":ObjectId(req.body.id)},function(err,docs){
+
+    res.json({"status":1,"message":docs[0]});
+  });
+})
 app.listen(3001);
 console.log("running 3001");
