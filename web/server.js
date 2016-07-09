@@ -1,7 +1,7 @@
 var express=require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db =mongojs('jpc',['users','contents']);
+var db =mongojs('jpc',['users','contents','questions']);
 var bodyParser = require('body-parser');
 var ObjectId = mongojs.ObjectId;
 app.use(express.static(__dirname+"/public"));
@@ -103,6 +103,16 @@ app.post('/getProfileCourses',function(req,res){
   db.contents.find({"_id":ObjectId(req.body.courseId)},function(err,docs){
 
     res.json({"status":1,"message":docs[0]});
+  });
+});
+
+//ADD QUESTION
+
+app.post('/addQuestion',function(req,res){
+
+  db.questions.insert({"user_id":ObjectId(req.body.id),"question":req.body.question,"answers":[]},function(err,docs){
+
+    res.json({"status":1,"message":docs});
   });
 });
 app.listen(3001);
