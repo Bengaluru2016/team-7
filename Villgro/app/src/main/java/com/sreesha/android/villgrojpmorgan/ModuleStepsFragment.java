@@ -1,18 +1,21 @@
 package com.sreesha.android.villgro;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.drozdzynski.library.steppers.OnCancelAction;
 import me.drozdzynski.library.steppers.OnFinishAction;
@@ -33,6 +36,8 @@ public class ModuleStepsFragment extends Fragment {
     SteppersView steppersView;
     SteppersView.Config steppersViewConfig;
     ArrayList<SteppersItem> steps;
+    TextView mContentTextView;
+    TextToSpeech textToSpeech;
 
     public ModuleStepsFragment() {
         // Required empty public constructor
@@ -70,6 +75,23 @@ public class ModuleStepsFragment extends Fragment {
                     ((ModuleCourseActivity) getActivity()).onFragmentInteraction(mParam1);
                 }
             });
+            mContentTextView = (TextView) view.findViewById(R.id.contentText);
+            mContentTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String toSpeak = mContentTextView.getText().toString();
+                    Log.d("LargeText", toSpeak);
+                    textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            });
+            textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status != TextToSpeech.ERROR) {
+                        textToSpeech.setLanguage(Locale.UK);
+                    }
+                }
+            });
             return view;
         } else if (mParam2.equals("q")) {
             View view = inflater.inflate(R.layout.quiz_layout, container, false);
@@ -80,6 +102,10 @@ public class ModuleStepsFragment extends Fragment {
             return view;
         }
         return null;
+    }
+
+    void downloadWAVFile(String string) {
+
     }
 
     void initializeSteppers(View view) {
