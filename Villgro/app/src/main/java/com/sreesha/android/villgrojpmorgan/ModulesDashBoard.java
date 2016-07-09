@@ -15,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.sreesha.android.villgro.Animation.AnimationUtils;
 
@@ -24,6 +27,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ModulesDashBoard extends AppCompatActivity {
+
+
     RecyclerView outerRecyclerView;
     OuterRecyclerViewCA outerRVAdapter;
     private int previousPosition = 0;
@@ -177,6 +182,7 @@ public class ModulesDashBoard extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
