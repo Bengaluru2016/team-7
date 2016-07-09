@@ -8,4 +8,9 @@
     tools:context="com.sreesha.android.villgro.LoginActivity"
     tools:showIn="@layout/activity_login">
 
+    <android.support.design.widget.TextInputEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.TextInputEditText>
 </RelativeLayout>
