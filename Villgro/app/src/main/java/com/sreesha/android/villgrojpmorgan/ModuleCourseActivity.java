@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
     SteppersView quizSteppersView;
     SteppersView.Config quizSteppersViewConfig;
     ArrayList<SteppersItem> quizSteps;
+    public static final int STEP_NUM = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,6 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steppersViewConfig.setOnFinishAction(new OnFinishAction() {
             @Override
             public void onFinish() {
-                setupQuizStep();
             }
         });
         steppersViewConfig.setOnCancelAction(new OnCancelAction() {
@@ -48,23 +49,15 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steps = new ArrayList<>();
 
         int i = 0;
-        while (i <= 2) {
+        while (i <= STEP_NUM) {
 
             final SteppersItem item = new SteppersItem();
             item.setLabel("Step nr " + i);
             item.setPositiveButtonEnable(true);
-
-            if (i % 2 == 0) {
                 ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i, null);
 
                 item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
                 item.setFragment(blankFragment);
-            } else {
-                ModuleStepsFragment blankSecondFragment = new ModuleStepsFragment();
-                item.setSubLabel("Fragment: " + blankSecondFragment.getClass().getSimpleName());
-                item.setFragment(blankSecondFragment);
-            }
-
             steps.add(item);
             i++;
         }
@@ -77,39 +70,6 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(steps);
         steppersView.build();
-    }
-
-    void setupQuizStep() {
-        quizSteppersViewConfig = new SteppersView.Config();
-        quizSteppersViewConfig.setOnFinishAction(new OnFinishAction() {
-            @Override
-            public void onFinish() {
-                setupQuizStep();
-            }
-        });
-        quizSteppersViewConfig.setOnCancelAction(new OnCancelAction() {
-            @Override
-            public void onCancel() {
-                // Action when click cancel on one of steps
-            }
-        });
-        quizSteppersViewConfig.setFragmentManager(getSupportFragmentManager());
-
-        ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1, "q");
-
-        SteppersItem stepFirst = new SteppersItem();
-
-        stepFirst.setLabel("Quiz");
-        stepFirst.setSubLabel("Ace it !");
-        stepFirst.setFragment(blankFragment);
-        stepFirst.setPositiveButtonEnable(true);
-        quizSteps = new ArrayList<SteppersItem>();
-        quizSteps.add(stepFirst);
-
-        quizSteppersView = (SteppersView) findViewById(R.id.steppersView);
-        quizSteppersView.setConfig(quizSteppersViewConfig);
-        quizSteppersView.setItems(steps);
-        quizSteppersView.build();
     }
 
     @Override
