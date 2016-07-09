@@ -1,18 +1,21 @@
 package com.sreesha.android.villgro;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.drozdzynski.library.steppers.OnCancelAction;
 import me.drozdzynski.library.steppers.OnFinishAction;
@@ -33,6 +36,8 @@ public class ModuleStepsFragment extends Fragment {
     SteppersView steppersView;
     SteppersView.Config steppersViewConfig;
     ArrayList<SteppersItem> steps;
+    TextView mContentTextView;
+    TextToSpeech textToSpeech;
 
     public ModuleStepsFragment() {
         // Required empty public constructor
@@ -70,6 +75,32 @@ public class ModuleStepsFragment extends Fragment {
                     ((ModuleCourseActivity) getActivity()).onFragmentInteraction(mParam1);
                 }
             });
+            mContentTextView = (TextView) view.findViewById(R.id.contentText);
+            mContentTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    textToSpeech.speak(getString(R.string.small_text), TextToSpeech.QUEUE_FLUSH, null, null);
+                }
+            });
+            textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status == TextToSpeech.SUCCESS) {
+
+                        int result = textToSpeech.setLanguage(Locale.US);
+
+                        if (result == TextToSpeech.LANG_MISSING_DATA
+                                || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            Log.e("TTS", "This Language is not supported");
+                        } else {
+                            textToSpeech.speak(getString(R.string.small_text), TextToSpeech.QUEUE_FLUSH, null, null);
+                        }
+
+                    } else {
+                        Log.e("TTS", "Initilization Failed!");
+                    }
+                }
+            });
             return view;
         } else if (mParam2.equals("q")) {
             View view = inflater.inflate(R.layout.quiz_layout, container, false);
@@ -80,6 +111,10 @@ public class ModuleStepsFragment extends Fragment {
             return view;
         }
         return null;
+    }
+
+    void downloadWAVFile(String string) {
+
     }
 
     void initializeSteppers(View view) {
@@ -136,6 +171,16 @@ public class ModuleStepsFragment extends Fragment {
         steppersView.setItems(steps);
         steppersView.build();
     }
+
+    @Override
+    public void onPause() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onPause();
+    }
+
 
     @Override
     public void onAttach(Context context) {
