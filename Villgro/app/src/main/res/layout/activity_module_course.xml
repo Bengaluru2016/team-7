@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/md_grey_400"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.sreesha.android.villgro.ModulesDashBoard">
+    tools:context="com.sreesha.android.villgro.ModuleCourseActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -33,12 +32,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_modules_dash_board" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/outerRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <include layout="@layout/content_module_course" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
