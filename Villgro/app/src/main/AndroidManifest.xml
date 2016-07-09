@@ -11,6 +11,10 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ModulesDashBoard"
+            android:label="@string/title_activity_modules_dash_board"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ModulesDashBoard"
-            android:label="@string/title_activity_modules_dash_board"
+            android:name=".ModuleCourseActivity"
+            android:label="@string/title_activity_module_course"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
