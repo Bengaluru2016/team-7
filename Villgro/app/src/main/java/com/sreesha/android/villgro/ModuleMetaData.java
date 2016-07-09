@@ -1,22 +1,24 @@
 package com.sreesha.android.villgro;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sreesha on 09-07-2016.
  */
 public class ModuleMetaData {
     String moduleType = "defaultType";
-    int moduleSubNumber = 0;
+    ArrayList<Integer> moduleSubNumberList;
 
-    public ModuleMetaData(String moduleType, int moduleSubNumber) {
+    public ModuleMetaData(String moduleType, ArrayList<Integer> moduleSubNumberList) {
         this.moduleType = moduleType;
-        this.moduleSubNumber = moduleSubNumber;
+        this.moduleSubNumberList = moduleSubNumberList;
     }
 
     public String getModuleType() {
         return moduleType;
     }
 
-    public int getModuleSubNumber() {
-        return moduleSubNumber;
+    public ArrayList<Integer> getModuleSubNumberArrayList() {
+        return moduleSubNumberList;
     }
 }
