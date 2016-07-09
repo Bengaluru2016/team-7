@@ -11,7 +11,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ModulesDashBoard"
             android:label="@string/title_activity_modules_dash_board"
@@ -25,7 +25,16 @@
         <activity
             android:name=".ModuleCourseActivity"
             android:label="@string/title_activity_module_course"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Forum_Connection"
+            android:label="@string/title_activity_forum__connection"
+            android:parentActivityName=".ModulesDashBoard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sreesha.android.villgro.ModulesDashBoard" />
+        </activity>
     </application>
 
 </manifest>
