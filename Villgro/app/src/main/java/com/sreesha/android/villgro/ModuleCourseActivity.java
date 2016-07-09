@@ -1,5 +1,6 @@
 package com.sreesha.android.villgro;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +15,7 @@ import me.drozdzynski.library.steppers.OnFinishAction;
 import me.drozdzynski.library.steppers.SteppersItem;
 import me.drozdzynski.library.steppers.SteppersView;
 
-public class ModuleCourseActivity extends AppCompatActivity {
+public class ModuleCourseActivity extends AppCompatActivity implements ModuleStepsFragment.ModuleStepsFragmentInterface {
     SteppersView steppersView;
     SteppersView.Config steppersViewConfig;
     ArrayList<SteppersItem> steps;
@@ -42,40 +43,27 @@ public class ModuleCourseActivity extends AppCompatActivity {
 
         steps = new ArrayList<>();
 
-        SteppersItem stepFirst = new SteppersItem();
+        int i = 0;
+        while (i <= 10) {
 
-        stepFirst.setLabel("Step - 1");
-        stepFirst.setSubLabel("Subtitle of step");
-        stepFirst.setFragment(
-                new ModuleStepsFragment()
+            final SteppersItem item = new SteppersItem();
+            item.setLabel("Step nr " + i);
+            item.setPositiveButtonEnable(i % 2 != 0);
 
-        );
-        stepFirst.setPositiveButtonEnable(false);
+            if (i % 2 == 0) {
+                ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(i,null);
 
-        steps.add(stepFirst);
+                item.setSubLabel("Fragment: " + blankFragment.getClass().getSimpleName());
+                item.setFragment(blankFragment);
+            } else {
+                ModuleStepsFragment blankSecondFragment = new ModuleStepsFragment();
+                item.setSubLabel("Fragment: " + blankSecondFragment.getClass().getSimpleName());
+                item.setFragment(blankSecondFragment);
+            }
 
-        SteppersItem stepSecond = new SteppersItem();
-
-        stepFirst.setLabel("Step - 2");
-        stepFirst.setSubLabel("Subtitle of step");
-        stepFirst.setFragment(
-                new ModuleStepsFragment()
-
-        );
-        stepFirst.setPositiveButtonEnable(false);
-        steps.add(stepSecond);
-
-        SteppersItem stepThird = new SteppersItem();
-
-        stepFirst.setLabel("Step - 3");
-        stepFirst.setSubLabel("Subtitle of step");
-        stepFirst.setFragment(
-                new ModuleStepsFragment()
-
-        );
-        stepFirst.setPositiveButtonEnable(false);
-        steps.add(stepThird);
-
+            steps.add(item);
+            i++;
+        }
         setupSteppersView();
     }
 
@@ -84,5 +72,12 @@ public class ModuleCourseActivity extends AppCompatActivity {
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(steps);
         steppersView.build();
+    }
+
+    @Override
+    public void onFragmentInteraction(int num) {
+        if (steps != null) {
+            steps.get(num).setPositiveButtonEnable(true);
+        }
     }
 }
