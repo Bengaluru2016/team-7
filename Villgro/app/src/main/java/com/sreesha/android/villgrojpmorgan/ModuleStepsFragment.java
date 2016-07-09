@@ -73,7 +73,7 @@ public class ModuleStepsFragment extends Fragment {
             initializeSteppers(view);
             return view;
         } else if (mParam2.equals("qq")) {
-            View view = inflater.inflate(R.layout.quiz_layout, container, false);
+            View view = inflater.inflate(R.layout.quiz_question_single_item, container, false);
             initializeSteppers(view);
             return view;
         }

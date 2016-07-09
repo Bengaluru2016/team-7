@@ -20,6 +20,10 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
     SteppersView.Config steppersViewConfig;
     ArrayList<SteppersItem> steps;
 
+    SteppersView quizSteppersView;
+    SteppersView.Config quizSteppersViewConfig;
+    ArrayList<SteppersItem> quizSteps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +79,7 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
     }
 
     void setupQuizStep() {
-        ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1,"q");
+        ModuleStepsFragment blankFragment = ModuleStepsFragment.newInstance(-1, "q");
 
         SteppersItem stepFirst = new SteppersItem();
 
@@ -83,12 +87,13 @@ public class ModuleCourseActivity extends AppCompatActivity implements ModuleSte
         stepFirst.setSubLabel("Ace it !");
         stepFirst.setFragment(blankFragment);
         stepFirst.setPositiveButtonEnable(true);
+        quizSteps = new ArrayList<SteppersItem>();
+        quizSteps.add(stepFirst);
 
-        steps.add(stepFirst);
-        /*
-        steppersView.setConfig(steppersViewConfig);
-        steppersView.setItems(steps);
-        steppersView.build();*/
+        quizSteppersView = (SteppersView) findViewById(R.id.steppersView);
+        quizSteppersView.setConfig(steppersViewConfig);
+        quizSteppersView.setItems(steps);
+        quizSteppersView.build();
     }
 
     @Override
