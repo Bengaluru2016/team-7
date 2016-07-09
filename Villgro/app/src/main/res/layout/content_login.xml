@@ -8,8 +8,4 @@
     tools:context="com.sreesha.android.villgro.LoginActivity"
     tools:showIn="@layout/activity_login">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
 </RelativeLayout>
