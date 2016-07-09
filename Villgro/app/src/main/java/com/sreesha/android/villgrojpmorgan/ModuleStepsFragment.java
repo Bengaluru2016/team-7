@@ -79,17 +79,25 @@ public class ModuleStepsFragment extends Fragment {
             mContentTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String toSpeak = mContentTextView.getText().toString();
-                    //Log.d("LargeText", toSpeak);
-                    textToSpeech.speak(getString(R.string.large_text), TextToSpeech.QUEUE_FLUSH, null);
+                    textToSpeech.speak(getString(R.string.small_text), TextToSpeech.QUEUE_FLUSH, null, null);
                 }
             });
             textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int status) {
-                    if (status != TextToSpeech.ERROR) {
-                        Log.d("LargeText", "Error");
-                        textToSpeech.setLanguage(Locale.UK);
+                    if (status == TextToSpeech.SUCCESS) {
+
+                        int result = textToSpeech.setLanguage(Locale.US);
+
+                        if (result == TextToSpeech.LANG_MISSING_DATA
+                                || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            Log.e("TTS", "This Language is not supported");
+                        } else {
+                            textToSpeech.speak(getString(R.string.small_text), TextToSpeech.QUEUE_FLUSH, null, null);
+                        }
+
+                    } else {
+                        Log.e("TTS", "Initilization Failed!");
                     }
                 }
             });
@@ -163,6 +171,16 @@ public class ModuleStepsFragment extends Fragment {
         steppersView.setItems(steps);
         steppersView.build();
     }
+
+    @Override
+    public void onPause() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onPause();
+    }
+
 
     @Override
     public void onAttach(Context context) {
