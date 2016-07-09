@@ -115,5 +115,24 @@ app.post('/addQuestion',function(req,res){
     res.json({"status":1,"message":docs});
   });
 });
+
+//ADD ANSWER
+
+app.post('/addAnswer',function(req,res){
+var answers=[];
+var ansObj={};
+  db.questions.find({"_id":ObjectId(req.body.question_id)},function(err,docs){
+    answers=docs[0].answers
+ansObj[req.body.answerer_id]=req.body.answer
+    answers.push(ansObj);
+console.log(answers);
+
+    db.questions.update({"_id":ObjectId(req.body.question_id)},{$set:{"answers":answers}},function(err,docs){
+
+      res.json(docs);
+    });
+  });
+});
+
 app.listen(3001);
 console.log("running 3001");
