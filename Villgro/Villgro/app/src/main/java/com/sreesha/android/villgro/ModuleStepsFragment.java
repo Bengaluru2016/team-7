@@ -144,7 +144,7 @@ public class ModuleStepsFragment extends Fragment {
             steppersView = (SteppersView) view.findViewById(R.id.quizSteppersLayout);
             new DownloadData(
                     getActivity()
-                    , APIUrls.getQuizDataURL("f2e980575ae0e0c87133d01d")
+                    , APIUrls.getQuizDataURL("2dcc81571ab8ef191f3d1156")
                     , new AsyncResult() {
                 @Override
                 public void onResultJSON(JSONObject object) throws JSONException {
@@ -241,7 +241,7 @@ public class ModuleStepsFragment extends Fragment {
                     String id=PreferenceManager.getDefaultSharedPreferences(getActivity())
                             .getString(LoginActivity.USER_ID_KEY,"default");
                     new DownloadData(getActivity()
-                            , APIUrls.getaddQuizDataURL("f2e980575ae0e0c87133d01d", id, String.valueOf(right))
+                            , APIUrls.getaddQuizDataURL("2dcc81571ab8ef191f3d1156", id, String.valueOf(right))
                             , new AsyncResult() {
                         @Override
                         public void onResultJSON(JSONObject object) throws JSONException {
