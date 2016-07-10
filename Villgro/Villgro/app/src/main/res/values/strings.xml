@@ -101,4 +101,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_leader_board">LeaderBoard</string>
+    <string name="activity_forum_title">Forum</string>
 </resources>
