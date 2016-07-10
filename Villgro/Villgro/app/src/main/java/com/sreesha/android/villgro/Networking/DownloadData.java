@@ -115,7 +115,7 @@ public class DownloadData extends AsyncTask<String, Void, String> {
             }
             if (requestParam.contains("emailPHPPost")) {
                 try {
-                    resultData = performPostCall("http://84.200.84.218:3001/addResults", builder);
+                    resultData = performPostCall("http://84.200.84.218/7/mail.php", builder);
                     Log.d("PHPPost", resultData);
                 } catch (IOException e) {
                     e.printStackTrace();

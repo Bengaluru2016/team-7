@@ -90,9 +90,6 @@ public class ModulesDashBoard extends AppCompatActivity implements NavigationVie
             Intent in=new Intent(ModulesDashBoard.this,Forum.class);
             startActivity(in);
 
-        } else if (id == R.id.nav_manage) {
-            /*Intent in=new Intent(ModulesDashBoard.this,ForumConnection.class);
-            startActivity(in);*/
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
