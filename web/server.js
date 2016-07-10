@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.post('/signup',function(req,res){
 console.log(req.body);
 
-db.users.insert({"uname":req.body.uname,"email":req.body.email,"password":req.body.password,"type":req.body.type,"courses":[]},function(err,docs){
+db.users.insert({"uname":req.body.uname,"email":req.body.email,"password":req.body.password,"type":req.body.type,"courses":[],"quize":[]},function(err,docs){
 console.log(docs);
 if(err==null)
 {
@@ -32,7 +32,7 @@ db.users.find({"email":req.body.email,"password":req.body.password,"type":req.bo
 console.log(docs);
 if(docs)
 {
-  res.json({"status":1,"message":docs[0]._id});
+  res.json({"status":1,"message":docs[0]});
 }else{
   res.json({"status":0,"message":"no user found"});
 }
@@ -40,6 +40,15 @@ if(docs)
 
 });
 
+});
+
+// GET COURSE DEPENDING ON type
+
+app.post('/getCourseDependingOnType',function(req,res){
+  db.contents.find({"content_category":req.body.content_category},function(err,docs){
+   console.log(docs);
+    res.json({"status":1,"message":docs});
+  });
 });
 
 // CREATE CONTENT
@@ -150,13 +159,42 @@ db.quize.insert({"question":req.body.question,"answers":answers,"qposter_id":req
 
 app.post('/getQuize',function(req,res){
 
-  db.quize.find({"course_id":req.body.question_id},function(err,docs){
+db.quize.find({"course_id":req.body.course_id},function(err,docs){
+  res.json(docs[0]);
+});
 
-res.json(docs[0]);
-
-  });
 
 });
 
+// ADD RESULTS TO USER
+app.post("/addResults",function(req,res){
+var quize=[];
+var obj={};
+  db.users.find({"_id":ObjectId(req.body.id)},function(err,docs){
+quize=docs[0].quize;
+obj[req.body.course_id]=req.body.result;
+quize.push(obj);
+console.log(quize)
+//res.send("yes");
+db.users.update({"_id":ObjectId(req.body.id)},{$set:{"quize":quize}},function(err,docs){
+
+  res.send(docs);
+});
+
+
+  });
+});
+
+//  db.quize.find({"course_id":req.body.course_id},function(err,docs){
+ //
+//  res.json(docs);
+//  });
+
+//res.json(docs[0]);
+
+
+//VERIFY ANSWER
+
+//app.post('/verifyAnswer',function(req,res));
 app.listen(3001);
 console.log("running 3001");
