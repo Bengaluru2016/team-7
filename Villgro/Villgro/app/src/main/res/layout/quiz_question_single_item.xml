@@ -14,27 +14,32 @@
         android:textStyle="bold" />
 
     <RadioGroup
+        android:id="@+id/quizOptionsRadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/questionTextView"
         android:layout_gravity="center">
 
         <RadioButton
+            android:id="@+id/op1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Option1" />
 
         <RadioButton
+            android:id="@+id/op2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Option2" />
 
         <RadioButton
+            android:id="@+id/op3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Option3" />
 
         <RadioButton
+            android:id="@+id/op4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Option4" />
