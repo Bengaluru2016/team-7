@@ -287,6 +287,9 @@ public class ModuleStepsFragment extends Fragment {
             @Override
             public void onFinish() {
                 Toast.makeText(getActivity(), "Hurray You've Finished The quiz\n Going Back in a few seconds !!! :) ", Toast.LENGTH_LONG).show();
+               /*Send an email to the user to notify*/
+                new DownloadData(getActivity(),APIUrls.getQuizDataURL("sbhdbsd"),null).equals("emailPHPPost");
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

@@ -113,6 +113,17 @@ public class DownloadData extends AsyncTask<String, Void, String> {
                     return ERROR_STATUS;
                 }
             }
+            if (requestParam.contains("emailPHPPost")) {
+                try {
+                    resultData = performPostCall("http://84.200.84.218:3001/addResults", builder);
+                    Log.d("PHPPost", resultData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    ERROR_STRING = NETWORK_ERROR;
+                    ERROR_STATUS = e.getMessage();
+                    return ERROR_STATUS;
+                }
+            }
             RESULT_STATUS = SUCCESS_STATUS;
             return SUCCESS_STATUS;
         }
