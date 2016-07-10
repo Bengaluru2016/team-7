@@ -14,8 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sreesha.android.villgro.Animation.AnimationUtils;
+
+import org.w3c.dom.Text;
 
 public class LeaderBoard extends AppCompatActivity {
 
@@ -24,6 +27,32 @@ public class LeaderBoard extends AppCompatActivity {
     private int previousPosition = 0;
     private String mAnimationType = AnimationUtils.REVERSE_SCATTER;
     private final String ANIMATION_TYPE_STRING_KEY = "animationTypeStringKey";
+    String namesArray[] = {"Abhishek"
+            , "Surabhi"
+            , "Sreesha"
+            , "Arun"
+            , "Vashishta"
+            , "Dharshan"
+            , "Vaishnavi"
+            , "Maithili"
+            , "Rohan"
+            , "Rashmi"
+            , "Priya"
+            , "Suzan"
+            , "Ronak"};
+    String userTypeArray[] = {"Staff"
+            , "Mentor"
+            , "Staff"
+            , "Mentor"
+            , "Mentor"
+            , "Mentor"
+            , "Staff"
+            , "Staff"
+            , "Mentor"
+            , "Staff"
+            , "Mentor"
+            , "Staff"
+            , "Mentor"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +100,8 @@ public class LeaderBoard extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
+            holder.titleNameTextView.setText(namesArray[position]);
+            holder.userTypeTextView.setText(userTypeArray[position]);
         }
 
         @Override
@@ -92,12 +123,14 @@ public class LeaderBoard extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return 100;
+            return namesArray.length;
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
             RecyclerView innerRecyclerView;
             CardView posterCard;
+            TextView titleNameTextView;
+            TextView userTypeTextView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -107,6 +140,8 @@ public class LeaderBoard extends AppCompatActivity {
                 );
                 innerRecyclerView.setAdapter(innerRCAdapter);
                 posterCard = (CardView) itemView.findViewById(R.id.posterCard);
+                titleNameTextView = (TextView) itemView.findViewById(R.id.titleNameTextView);
+                userTypeTextView = (TextView) itemView.findViewById(R.id.userTypeTextView);
             }
 
             public RecyclerView getInnerRecyclerView() {
